@@ -229,6 +229,17 @@ void printVersions(std::map<SSLVersion, int>& versionMap, std::string headline)
 	}
 }
 
+void printSSLCertificates(SSLCertificateStats& certStats)
+{
+	printf("\n Number of certificates");
+	printf("%d\t", certStats.numOfCertificates);
+
+	printf("\n List of certificates");
+	for (int i = 0; i < certStats.certificateList.size(); i++) {
+	    // Here read the certificate into the file using X509 openssl calls and save it.
+	}
+
+}
 
 /**
  * Print used cipher-suite map to a table sorted by popularity (most popular cipher-suite will be first)
@@ -324,6 +335,8 @@ void printStatsSummary(SSLStatsCollector& collector)
 	PRINT_STAT_HEADLINE("Server-name count");
 	printServerNames(collector.getClientHelloStats());
 
+	PRINT_STAT_HEADLINE("SSL Certificates");
+	printSSLCertificates(collector.getSslCertificateStats());
 }
 
 

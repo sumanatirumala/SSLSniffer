@@ -9,7 +9,6 @@
 #include "SSLLayer.h"
 #include "SystemUtils.h"
 
-
 /**
  * An auxiliary struct for encapsulating rate stats
  */
@@ -91,6 +90,7 @@ struct ServerHelloStats
 	Rate messageRate; // rate of server-hello messages
 	std::map<std::string, int> cipherSuiteCount; // count of the different chosen cipher-suites
 
+
 	virtual ~ServerHelloStats() {}
 
 	virtual void clear()
@@ -102,6 +102,20 @@ struct ServerHelloStats
 	}
 };
 
+
+struct SSLCertificateStats
+{
+	int numOfCertificates; // total number of server-hello messages
+	std::vector<pcpp::SSLx509Certificate*> certificateList;
+
+	virtual ~SSLCertificateStats() {}
+
+	virtual void clear()
+	{
+		numOfCertificates = 0;
+		
+	}
+};
 
 /**
  * The SSL stats collector. Should be called for every packet arriving and also periodically to calculate rates
@@ -198,6 +212,8 @@ public:
 		m_PrevServerHelloStats.clear();
 		m_LastCalcRateTime = getCurTime();
 		m_StartTime = m_LastCalcRateTime;
+		//m_CertificateList.clear();
+		m_SslCertificateStats.clear();
 	}
 
 	/**
@@ -214,6 +230,13 @@ public:
 	 * Get server-hello stats
 	 */
 	ServerHelloStats& getServerHelloStats() { return m_ServerHelloStats; }
+
+	/**
+	* Get SSL Certificate stats
+	*/
+	//std::vector<pcpp::SSLx509Certificate*>& getCertificateStats() { return m_CertificateList; }
+	SSLCertificateStats& getSslCertificateStats() { return m_SslCertificateStats;  }
+	
 
 private:
 
@@ -335,6 +358,16 @@ private:
 					m_GeneralStats.sslRecordVersionCount[sslLayer->getRecordVersion()]++;
 					collecServerHelloStats(serverHelloMessage);
 				}
+
+				//try to find certificate stats
+				pcpp::SSLCertificateMessage* sslCertificateMessage = handshakeLayer->getHandshakeMessageOfType<pcpp::SSLCertificateMessage>();
+				
+				// collect certificate stats
+				if (sslCertificateMessage != NULL)
+				{
+					collecSSLCertStats(sslCertificateMessage);
+					printf("\n No of SSL certs:%d\t", sslCertificateMessage->getNumOfCertificates());
+				}
 			}
 
 			sslLayer = sslPacket->getNextLayerOfType<pcpp::SSLLayer>(sslLayer);
@@ -363,6 +396,23 @@ private:
 		pcpp::SSLCipherSuite* cipherSuite = serverHelloMessage->getCipherSuite();
 		if (cipherSuite != NULL)
 			m_ServerHelloStats.cipherSuiteCount[cipherSuite->asString()]++;
+		
+	}
+
+	/**
+	* Collect stats relevant only to ssl certificate messages
+	*/
+	void collecSSLCertStats(pcpp::SSLCertificateMessage* sslCertificateMessage)
+	{
+		for (int i = 0; i < sslCertificateMessage->getNumOfCertificates(); i++) {
+			pcpp::SSLx509Certificate* certificate = sslCertificateMessage->getCertificate(i);
+			if (certificate != NULL) {
+				m_SslCertificateStats.numOfCertificates = sslCertificateMessage->getNumOfCertificates();
+				m_SslCertificateStats.certificateList.push_back(certificate);
+				printf("\n Number of certificates :%d\t", sslCertificateMessage->getNumOfCertificates());
+			}
+		}
+
 	}
 
 	double getCurTime(void)
@@ -380,8 +430,10 @@ private:
 	ClientHelloStats m_PrevClientHelloStats;
 	ServerHelloStats m_ServerHelloStats;
 	ServerHelloStats m_PrevServerHelloStats;
+	SSLCertificateStats m_SslCertificateStats;
 
 	std::map<uint32_t, SSLFlowData> m_FlowTable;
+	//std::vector<pcpp::SSLx509Certificate*> m_CertificateList;
 
 	double m_LastCalcRateTime;
 	double m_StartTime;

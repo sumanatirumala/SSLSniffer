@@ -1,0 +1,27 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(367,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  Common.cpp
+c:\dev\pcapplusplus\dist\header\packet.h(194): warning C4800: 'uint64_t': forcing value to bool 'true' or 'false' (performance warning)
+c:\dev\pcapplusplus\3rdparty\getopt-for-visual-studio\getopt.h(59): warning C4081: expected 'newline'; found ';'
+c:\dev\pcapplusplus\dist\header\ipv4layer.h(215): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  c:\dev\pcapplusplus\dist\header\ipv4layer.h(215): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+c:\dev\pcapplusplus\examples\icmpfiletransfer\common.cpp(229): warning C4267: 'argument': conversion from 'size_t' to 'uint16_t', possible loss of data
+c:\dev\pcapplusplus\examples\icmpfiletransfer\common.cpp(231): warning C4267: 'argument': conversion from 'size_t' to 'uint16_t', possible loss of data
+  IcmpFileTransfer-pitcher.cpp
+c:\dev\pcapplusplus\dist\header\ipv4layer.h(215): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  c:\dev\pcapplusplus\dist\header\ipv4layer.h(215): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+c:\dev\pcapplusplus\dist\header\packet.h(194): warning C4800: 'uint64_t': forcing value to bool 'true' or 'false' (performance warning)
+c:\dev\pcapplusplus\examples\icmpfiletransfer\icmpfiletransfer-pitcher.cpp(201): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\dev\pcapplusplus\examples\icmpfiletransfer\icmpfiletransfer-pitcher.cpp(204): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\dev\pcapplusplus\examples\icmpfiletransfer\icmpfiletransfer-pitcher.cpp(513): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\dev\pcapplusplus\examples\icmpfiletransfer\icmpfiletransfer-pitcher.cpp(516): warning C4267: '+=': conversion from 'size_t' to 'uint32_t', possible loss of data
+c:\dev\pcapplusplus\examples\icmpfiletransfer\icmpfiletransfer-pitcher.cpp(532): warning C4244: '+=': conversion from 'std::streamsize' to 'uint32_t', possible loss of data
+  Generating Code...
+  IcmpFileTransfer-pitcher.vcxproj -> C:\Dev\PcapPlusPlus\Examples\IcmpFileTransfer\BinPitcher\IcmpFileTransfer-pitcher.exe
+  IcmpFileTransfer-pitcher.vcxproj -> C:\Dev\PcapPlusPlus\Examples\IcmpFileTransfer\BinPitcher\IcmpFileTransfer-pitcher.pdb (Full PDB)
+  C:\Users\sumana_tirumala\Dev\pthreads\Pre-built.2\dll\x64\pthreadVC2.dll
+  1 File(s) copied
+  C:\Dev\PcapPlusPlus\Examples\IcmpFileTransfer\BinPitcher\IcmpFileTransfer-pitcher.exe -> C:\Dev\PcapPlusPlus\Dist\examples\IcmpFileTransfer-pitcher.exe
+  1 File(s) copied
+  C:\Users\sumana_tirumala\Dev\pthreads\Pre-built.2\dll\x64\pthreadVC2.dll
+  1 File(s) copied
